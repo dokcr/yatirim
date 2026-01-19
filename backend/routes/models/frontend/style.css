@@ -1,7 +1,16 @@
-body { font-family: Arial, sans-serif; text-align: center; background:#f0f8ff;}
+body { font-family: Arial, sans-serif; text-align: center; background:#f0f8ff; }
 header h1 { font-size: 48px; color:#2c3e50; margin:20px; }
-#balance-section { font-size:24px; margin:10px;}
-#market { margin-top:20px;}
-#animals div { margin:10px; display:inline-block; border:1px solid #ccc; padding:10px; border-radius:8px; width:180px;}
-#animals img { width:100px; height:100px;}
-#code-section { margin-top:20px;}
+#balance-section { font-size:24px; margin:10px; }
+#market { margin-top:20px; }
+#animals div { 
+    margin:10px; 
+    display:inline-block; 
+    border:1px solid #ccc; 
+    padding:10px; 
+    border-radius:8px; 
+    width:180px;
+}
+#animals img { width:100px; height:100px; }
+#code-section { margin-top:20px; }
+button { cursor:pointer; padding:5px 10px; margin-top:5px; }
+input { padding:5px; }
