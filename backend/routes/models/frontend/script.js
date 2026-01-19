@@ -1,6 +1,7 @@
 let balance = 0;
 const userId = "demoUserId"; // Backend login sonrası dəyişəcək
 
+// Heyvanlar və şəkillər
 const animals = [
     { name: "Qoyun", prices: [1,3,5], incomePerSecond: [0.00001,0.00003,0.00005], image:"images/sheep.png" },
     { name: "İnək", prices: [10,15,20], incomePerSecond: [0.00012,0.00018,0.00024], image:"images/cow.png" },
@@ -10,6 +11,8 @@ const animals = [
 ];
 
 const animalsDiv = document.getElementById("animals");
+
+// Heyvanları bazara əlavə et
 animals.forEach(animal => {
     const div = document.createElement("div");
     div.innerHTML = <h3>${animal.name}</h3><img src="${animal.image}" /><br>;
@@ -27,10 +30,11 @@ function buyAnimal(animal,index){
         balance -= animal.prices[index];
         document.getElementById("balance").innerText = balance.toFixed(2);
         alert(`${animal.name} alındı!`);
-        // TODO: Backend ilə save etmək
+        // TODO: Backend ilə save etmək (ferma və gəlir)
     } else alert("Balans kifayət etmir!");
 }
 
+// Kod tətbiqi
 document.getElementById("apply-code").onclick = async () => {
     const code = document.getElementById("code-input").value;
     try{
