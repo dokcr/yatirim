@@ -1,18 +1,31 @@
-const mongoose = require('mongoose');
+const router = require('express').Router();
+const User = require('../models/User');
+const Code = require('../models/Code');
 
-const userSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    balance: { type: Number, default: 0 },
-    farm: [
-        {
-            name: String,
-            amount: { type: Number, default: 0 },
-            income_per_second: Number,
-            image: String
-        }
-    ],
-    lastUpdated: { type: Date, default: Date.now }
+// Get user data
+router.get('/:id', async (req,res) => {
+    const user = await User.findById(req.params.id);
+    res.json(user);
 });
 
-module.exports = mongoose.model('User', userSchema);
+// Apply code
+router.post('/:id/apply-code', async (req,res) => {
+    const { code } = req.body;
+    const user = await User.findById(req.params.id);
+    const codeDoc = await Code.findOne({ code });
+
+    if(!codeDoc) return res.status(400).json({ message: 'Kod tapılmadı' });
+    if(codeDoc.used) return res.status(400).json({ message: 'Kod artıq istifadə olunub' });
+
+    user.balance += codeDoc.amount;
+    codeDoc.used = true;
+    codeDoc.usedBy = user._id;
+    codeDoc.usedAt = new Date();
+
+    await user.save();
+    await codeDoc.save();
+
+    res.json({ message: 'Kod tətbiq edildi', balance: user.balance });
+});
+
+module.exports = router;
